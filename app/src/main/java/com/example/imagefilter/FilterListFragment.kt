@@ -42,6 +42,7 @@ class FilterListFragment : BottomSheetDialogFragment(), FilterListFragmentListen
         internal var bitmap:Bitmap?=null
 
         fun getInstance(bitmapSave: Bitmap?):FilterListFragment{
+            bitmap = bitmapSave
             if (instance == null)
             {
                 instance = FilterListFragment()
