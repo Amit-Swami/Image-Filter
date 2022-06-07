@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.graphics.YuvImage
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.cardview.widget.CardView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.viewpager.widget.ViewPager
 import com.example.imagefilter.Adapter.ViewPagerAdapter
 import com.example.imagefilter.Interface.*
@@ -537,7 +539,13 @@ class MainActivity : AppCompatActivity(), FilterListFragmentListener, EditImageF
     private fun handleCropResult(data: Intent?) {
         var resultUri = UCrop.getOutput(data!!)
         if (resultUri != null)
+        {
             image_preview.source.setImageURI(resultUri)
+            var bitmap = image_preview.source.drawable.toBitmap()
+            originalImage = bitmap.copy(Bitmap.Config.ARGB_8888,true)
+            filteredImage = (originalImage as Bitmap?)!!
+            finalImage = (originalImage as Bitmap?)!!
+        }
         else
             Toast.makeText(this@MainActivity,"Cannot retrieve crop image",Toast.LENGTH_SHORT).show()
 
